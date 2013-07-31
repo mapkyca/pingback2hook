@@ -27,6 +27,6 @@ namespace pingback2hook\core {
     if (!Page::call($page)) {
         Page::set404();
 
-        throw new \home_api\core\exceptions\PageNotFoundException(sprintf(\home_api\i18n\i18n::w('page:exception:notfound'), $page));
+        throw new \pingback2hook\core\exceptions\PageNotFoundException(sprintf(\pingback2hook\i18n\i18n::w('page:exception:notfound'), $page));
     }
 }
