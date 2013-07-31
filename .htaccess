@@ -1,0 +1,21 @@
+# Disable directory listings for URLs that map to a directory
+Options -Indexes
+
+# Deny access to setup info
+<Files "htaccess_dist">
+    order allow,deny
+    deny from all
+</Files>
+
+<IfModule mod_rewrite.c>
+
+RewriteEngine on
+
+# It may be necessary to uncomment and modify this line if installing in a subdirectory.
+# RewriteBase / 
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f 
+RewriteRule ^(.*)$ engine/handlers/page_handler.php?page=$1 [QSA]
+
+</IfModule>
