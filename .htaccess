@@ -12,7 +12,7 @@ Options -Indexes
 RewriteEngine on
 
 # It may be necessary to uncomment and modify this line if installing in a subdirectory.
-# RewriteBase / 
+RewriteBase / 
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f 
