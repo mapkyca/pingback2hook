@@ -78,7 +78,9 @@ namespace pingback2hook {
             // Boot these since we need to to support plugin specific boot templates and translations. May find a better way eventually
             \pingback2hook\templates\Template::getInstance();
             \pingback2hook\i18n\i18n::getInstance();
-            
+        
+            // Boot init
+            \pingback2hook\endpoints\Endpoint::init(self::$config->docroot. 'definitions/'); // Boot API
             
         }
 
