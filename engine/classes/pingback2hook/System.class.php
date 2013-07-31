@@ -79,7 +79,12 @@ namespace pingback2hook {
             \pingback2hook\templates\Template::getInstance();
             \pingback2hook\i18n\i18n::getInstance();
         
-            // Boot init
+            // Boot various services
+            \pingback2hook\mention\Webmention::init();
+            \pingback2hook\mention\Pingback::init();
+            \pingback2hook\api\API::init();
+            
+            // Load definitions
             \pingback2hook\endpoints\Endpoint::init(self::$config->docroot. 'definitions/'); // Boot API
             
         }
