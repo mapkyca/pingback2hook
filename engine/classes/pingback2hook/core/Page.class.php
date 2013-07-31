@@ -196,6 +196,14 @@ namespace pingback2hook\core {
         }
 
         /**
+         * Set 400 headers
+         */
+        public static function set400() {
+            header("HTTP/1.1 400 Bad Request");
+            header("Status: 400");
+        }
+
+        /**
          * Set 404 headers
          */
         public static function set404() {
