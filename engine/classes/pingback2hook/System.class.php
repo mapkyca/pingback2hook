@@ -83,6 +83,7 @@ namespace pingback2hook {
             \pingback2hook\mention\Webmention::init();
             \pingback2hook\mention\Pingback::init();
             \pingback2hook\api\API::init();
+            \pingback2hook\webhooks\Webhook::init();
             
             // Load definitions
             \pingback2hook\endpoints\Endpoint::init(self::$config->docroot. 'definitions/'); // Boot API
