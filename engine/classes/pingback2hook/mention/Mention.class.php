@@ -97,7 +97,7 @@ namespace pingback2hook\mention {
             
             // Trigger an event
             if (!$details) $details = array();
-            Events::trigger('mention', 'saved', array_merge(array('target_url' => $target_url, 'source_url' => $source_url), $details));
+            Events::trigger('mention', 'save', array_merge(array('target_url' => $target_url, 'source_url' => $source_url), $details));
             
             return true;
         }

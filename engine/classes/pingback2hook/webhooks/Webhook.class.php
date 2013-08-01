@@ -14,12 +14,24 @@
 
 namespace pingback2hook\webhooks {
     
+    use pingback2hook\core\Events as Events;
+    
     class Webhook {
         
         
         public static function init() {
             
-            // TODO: Initialise webhook listen
+            // Listen for save events in order to trigger webhooks
+            Events::register('mention', 'save', function($namespace, $event, &$parameters) {
+                
+                
+                
+                // TODO: Send webhook
+                
+                
+                
+                
+            });
         }
     }
 }
