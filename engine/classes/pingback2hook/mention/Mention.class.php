@@ -90,7 +90,16 @@ namespace pingback2hook\mention {
          * @param array $details
          */
         protected static function saveMention($target_url, $source_url, array $details = null) {
+           
             
+            // TODO : Save
+            
+            
+            // Trigger an event
+            if (!$details) $details = array();
+            Events::trigger('mention', 'saved', array_merge(array('target_url' => $target_url, 'source_url' => $source_url), $details));
+            
+            return true;
         }
         
         
