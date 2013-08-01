@@ -17,6 +17,7 @@ namespace pingback2hook\mention {
     use pingback2hook\core\Page as Page;
     use pingback2hook\core\Input as Input;
     use pingback2hook\endpoints\Endpoint as Endpoint;
+    use pingback2hook\templates\Template as Template;
     
     class Webmention extends Mention {
         
@@ -32,22 +33,24 @@ namespace pingback2hook\mention {
                     // Do we have a source and target URL?
                     if ($source_url && $target_url) {
 
+                        // Check we haven't already got this one registered.
+                        if (self::isTargetRegistered($target_url))
+                            throw new AlreadyRegisteredException("Target $target_url has already been registered.");
                         
+                        // Check whether target is in source url
+                        if (!$details = self::checkSourceUrl($source_url, $target_url))
+                            throw new NoLinkFoundException("$target_url not found in $source_url");
                         
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+                        if (self::saveMention($target_url, $source_url, $details)) {
+                            
+                            header('HTTP/1.1 202 Accepted');
+                            
+                            Template::getInstance()->outputPage("Webmention of $target_url from $source_url", array(
+                                'result' => 'Ok.'
+                            ));
+                        }
+                        else
+                            throw new TargetNotSupportedException("Problem saving mention to $target_url from $source_url.");
                     }
                     else
                         throw new SourceNotFoundException('Source and target variables missing.');
