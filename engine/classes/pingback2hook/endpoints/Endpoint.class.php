@@ -27,12 +27,19 @@ use pingback2hook\plugins\Plugin as Plugin;
         private static $endpoints;
         /// Base path
         private static $basepath;
+        
+        public static function get($endpoint) {
+            if (isset(self::$endpoints[$endpoint]))
+                return self::$endpoints[$endpoint];
+            
+            return false;
+        }
 
         /**
          * Initialise definition directory.
          * @param type $definitionDirectory
          */
-        public function init($definitionDirectory) {
+        public static function init($definitionDirectory) {
 
             self::$basepath = $definitionDirectory;
             self::$endpoints = array();

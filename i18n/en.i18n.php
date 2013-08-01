@@ -22,6 +22,12 @@ namespace pingback2hook\i18n {
         'couchdb:exception:curl_not_installed' => 'Sorry, cURL is not installed.',
         'couchdb:exception:no_result' => 'No result returned from server',
         'couchdb:exception:result_not_json' => 'Result returned was not valid JSON',
+        // Mention Exceptions
+        'exception:pingback2hook:mention:AlreadyRegisteredException' => 'already_registered',
+        'exception:pingback2hook:mention:TargetNotSupportedException' => 'target_not_supported',
+        'exception:pingback2hook:mention:TargetNotFoundException' => 'target_not_found',
+        'exception:pingback2hook:mention:SourceNotFoundException' => 'source_not_found',
+        'exception:pingback2hook:mention:NoLinkFoundException' => 'no_link_found',
     );
 
 
