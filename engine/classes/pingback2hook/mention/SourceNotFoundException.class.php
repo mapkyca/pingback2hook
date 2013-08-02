@@ -14,7 +14,10 @@
 namespace pingback2hook\mention {
 
     class SourceNotFoundException extends MentionException {
-        
+        public function __construct($message, $code, $previous) {
+            $code = 16;
+            parent::__construct($message, $code, $previous);
+        }
     }
 
 }

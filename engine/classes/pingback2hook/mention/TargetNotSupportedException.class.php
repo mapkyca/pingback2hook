@@ -14,7 +14,10 @@
 namespace pingback2hook\mention {
 
     class TargetNotSupportedException extends MentionException {
-        
+        public function __construct($message, $code, $previous) {
+            $code = 33;
+            parent::__construct($message, $code, $previous);
+        }
     }
 
 }

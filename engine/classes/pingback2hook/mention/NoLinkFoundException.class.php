@@ -14,7 +14,10 @@
 namespace pingback2hook\mention {
 
     class NoLinkFoundException extends MentionException {
-        
+        public function __construct($message, $code, $previous) {
+            $code = 17;
+            parent::__construct($message, $code, $previous);
+        }
     }
 
 }

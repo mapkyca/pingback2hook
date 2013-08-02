@@ -14,7 +14,10 @@
 namespace pingback2hook\mention {
 
     class AlreadyRegisteredException extends MentionException {
-        
+        public function __construct($message, $code, $previous) {
+            $code = 48;
+            parent::__construct($message, $code, $previous);
+        }
     }
 
 }

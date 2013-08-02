@@ -14,7 +14,10 @@
 namespace pingback2hook\mention {
 
     class TargetNotFoundException extends MentionException {
-        
+        public function __construct($message, $code, $previous) {
+            $code = 32;
+            parent::__construct($message, $code, $previous);
+        }
     }
 
 }
