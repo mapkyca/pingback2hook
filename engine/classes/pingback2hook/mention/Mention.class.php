@@ -133,6 +133,7 @@ namespace pingback2hook\mention {
                 return false;
             
             $details['couch_rev'] = $rev;
+            $details['uuid'] = $uuid;
             
             // Trigger an event
             Events::trigger('mention', 'save', array_merge(array('target_url' => $target_url, 'source_url' => $source_url), $details));
