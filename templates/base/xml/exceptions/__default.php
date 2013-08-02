@@ -1,0 +1,1 @@
+<?= pingback2hook\templates\Template::v('xml-rpc/failure', array('faultCode' => $vars['exception']->getCode(), 'message' => $vars['exception']->getMessage())); ?>

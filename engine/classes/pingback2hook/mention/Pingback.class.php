@@ -26,6 +26,8 @@ namespace pingback2hook\mention {
             
             Page::create('pingback', function($page, $subpages){
                 
+                Input::set('_vt', 'xml');
+                
                 if ($endpoint = Endpoint::get($subpages[0])) {
                 
                     if ($xml = XmlParser::unserialise(Input::getPOST()))
@@ -52,26 +54,8 @@ namespace pingback2hook\mention {
                  
                             if (self::saveMention($target_url, $source_url, $details)) {
 
-                                header('HTTP/1.1 202 Accepted');
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
                                 // Accept ping back
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
+                                Template::getInstance()->outputPage("Pingback of $target_url from $source_url", Template::v('xml-rpc/success', array('message' => "Ok")));
                                 
                             }
                             else
