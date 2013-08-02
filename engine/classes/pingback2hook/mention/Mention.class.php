@@ -21,6 +21,15 @@ namespace pingback2hook\mention {
     abstract class Mention {
         
         /**
+         * Retrieve a specific ping based on it's uuid (generated from target and source).
+         * @param type $uuid
+         * @return type
+         */
+        public function get($uuid) {
+            return $couch->retrieve($uuid);
+        }
+        
+        /**
          * Generate a UUID out of source and target
          * @param type $source_url
          * @param type $target_url
