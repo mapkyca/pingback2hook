@@ -105,6 +105,7 @@ namespace pingback2hook\mention {
                     return self::parseSource($source_url, $target_url); // Target found in source, return some data about the page
                     
                 }
+                return false;
             }
             
             throw new SourceNotFoundException("Could not load $source_url");
