@@ -5,10 +5,15 @@
     $webmention = pingback2hook\core\Environment::getWebRoot() . 'webmention/example/';
     header('Link: <'.$webmention.'>; rel="http://webmention.org/"');
     
+    // Pingback
+    $pingback = pingback2hook\core\Environment::getWebRoot() . 'pingback/example/';
+    header('X-Pingback: ' . $pingback);
+    
 ?><html>
     <head>
         <title>Generic Pingback/Webmention endpoint : Pingback2Hook</title>
         <link href="<?= $webmention; ?>" rel="http://webmention.org/" />
+        <link rel="pingback" href="<?= $pingback; ?>" />
     </head>
     <body>
         <h1>Generic Pingback/Webmention endpoint</h1>
