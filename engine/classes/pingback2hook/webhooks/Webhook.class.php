@@ -15,6 +15,8 @@
 namespace pingback2hook\webhooks {
     
     use pingback2hook\core\Events as Events;
+    use pingback2hook\storage\nosql\NoSQLStorage as NoSQLStorage;
+    use pingback2hook\storage\nosql\CouchDB as CouchDB;
     
     class Webhook {
         
@@ -23,6 +25,8 @@ namespace pingback2hook\webhooks {
             
             // Listen for save events in order to trigger webhooks
             Events::register('mention', 'save', function($namespace, $event, &$parameters) {
+               
+                $couch = CouchDB::getInstance();
                 
                 if ($endpoint = Endpoint::get($parameters['endpoint']))
                 {
@@ -50,6 +54,14 @@ namespace pingback2hook\webhooks {
                         $context = stream_context_create($opts);
 
                         $result = file_get_contents($url, false, $context);
+                        
+                        // Save result of pingback
+                        $ping = new stdClass();
+                        $ping->on_uuid = $parameters['uuid'];
+                        $ping->on_rev = $parameters['couch_rev'];
+                        $ping->response_headers = $http_response_header;
+                        
+                        $couch->store('wh-' . sha1($parameters['uuid'] . $url), $ping);
                         
                     }
                     
