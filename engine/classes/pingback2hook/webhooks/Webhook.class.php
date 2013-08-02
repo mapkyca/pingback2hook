@@ -43,7 +43,7 @@ namespace pingback2hook\webhooks {
                         $http_opts = array(
                                 'method' => 'POST',
                                 'header' => trim($headers_str),
-                                'content' => $query
+                                'content' => $json
                         );
 
                         $opts = array('http' => $http_opts);
