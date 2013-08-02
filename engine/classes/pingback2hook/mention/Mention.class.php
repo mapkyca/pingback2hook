@@ -127,6 +127,7 @@ namespace pingback2hook\mention {
             $saved = new \stdClass();
             $saved->target_url = $target_url;
             $saved->source_url = $source_url;
+            $saved->unix_timestamp = time();
             $saved->details = $details;
             
             $rev = $couch->store($uuid, $saved);
@@ -135,6 +136,7 @@ namespace pingback2hook\mention {
             
             $details['couch_rev'] = $rev;
             $details['uuid'] = $uuid;
+            $details['unix_timestamp'] = $saved->unix_timestamp;
             
             // Trigger an event
             Events::trigger('mention', 'save', array_merge(array('target_url' => $target_url, 'source_url' => $source_url), $details));
