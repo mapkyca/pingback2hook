@@ -41,6 +41,10 @@ namespace pingback2hook\mention {
                         if (!$details = self::checkSourceUrl($source_url, $target_url))
                             throw new NoLinkFoundException("$target_url not found in $source_url");
                         
+                        // Append configuration details
+                        $details['endpoint'] = $subpages[0];
+                        
+                        // Save
                         if (self::saveMention($target_url, $source_url, $details)) {
                             
                             header('HTTP/1.1 202 Accepted');
