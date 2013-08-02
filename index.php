@@ -1,6 +1,14 @@
-<html>
+<?php
+    require_once(dirname(__FILE__) . '/engine/start.php');
+
+    // Example webmention endpoint
+    $webmention = pingback2hook\core\Environment::getWebRoot() . 'webmention/example/';
+    header('Link: <'.$webmention.'>; rel="http://webmention.org/"');
+    
+?><html>
     <head>
         <title>Generic Pingback/Webmention endpoint : Pingback2Hook</title>
+        <link href="<?= $webmention; ?>" rel="http://webmention.org/" />
     </head>
     <body>
         <h1>Generic Pingback/Webmention endpoint</h1>
