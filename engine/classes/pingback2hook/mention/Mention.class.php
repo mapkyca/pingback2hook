@@ -102,7 +102,7 @@ namespace pingback2hook\mention {
                 preg_match_all('/(?<!=["\'])((ht|f)tps?:\/\/[^\s\r\n\t<>"\'\!\(\)]+)/i', $source, $matches);
                 if ((in_array($target_url, $matches[0])) && (strpos($http_response_header[0], '4') === false)) {
 
-                    return self::parseSource($source, $target_url); // Target found in source, return some data about the page
+                    return self::parseSource($source_url, $target_url); // Target found in source, return some data about the page
                     
                 }
             }
