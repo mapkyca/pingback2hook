@@ -24,11 +24,36 @@ namespace pingback2hook\webhooks {
             // Listen for save events in order to trigger webhooks
             Events::register('mention', 'save', function($namespace, $event, &$parameters) {
                 
-                
-                
-                // TODO: Send webhook
-                
-                
+                if ($endpoint = Endpoint::get($parameters['endpoint']))
+                {
+                    foreach ($endpoint['webhooks'] as $url) {
+                        
+                        $json = json_encode($parameters);
+
+                        $headers = array(); 
+                        $headers['Content-Length'] = strlen($json);
+                        $headers['Content-Type'] = 'application/json';
+                        
+                        $headers_str = "";
+
+                        foreach ($headers as $k => $v) {
+                                $headers_str .= trim($k) . ": " . trim($v) . "\r\n";
+                        }
+
+                        $http_opts = array(
+                                'method' => 'POST',
+                                'header' => trim($headers_str),
+                                'content' => $query
+                        );
+
+                        $opts = array('http' => $http_opts);
+                        $context = stream_context_create($opts);
+
+                        $result = file_get_contents($url, false, $context);
+                        
+                    }
+                    
+                }
                 
                 
             });
