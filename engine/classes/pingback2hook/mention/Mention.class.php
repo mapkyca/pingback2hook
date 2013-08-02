@@ -15,16 +15,34 @@
 namespace pingback2hook\mention {
     
     use pingback2hook\core\Events as Events;
-    
+    use pingback2hook\storage\nosql\NoSQLStorage as NoSQLStorage;
+    use pingback2hook\storage\nosql\CouchDB as CouchDB;
     
     abstract class Mention {
+        
+        /**
+         * Generate a UUID out of source and target
+         * @param type $source_url
+         * @param type $target_url
+         * @return type
+         */
+        protected function uuid($source_url, $target_url) { 
+            return 'mention-' . sha1($target_url . $source_url); 
+        }
         
         /** 
          * Check whether a target URL is registered.
          * @param type $target
          */
-        public static function isTargetRegistered($target) {
+        public static function isTargetRegistered($source_url, $target_url) {
+            $uuid = self::uuid($source_url, $target_url);
+            $couch = CouchDB::getInstance();
             
+            // See if this mention already exists
+            if ($latest = $couch->retrieve($uuid))
+                return true;
+            
+            return false;
         }
         
         /**
@@ -90,22 +108,28 @@ namespace pingback2hook\mention {
          * @param array $details
          */
         protected static function saveMention($target_url, $source_url, array $details = null) {
-           
+               
+            // Save in couch
+            $uuid = self::uuid($source_url, $target_url);
+            $couch = CouchDB::getInstance();
             
-            // TODO : Save
+            if (!$details) $details = array();
+            $saved = new \stdClass();
+            $saved->target_url = $target_url;
+            $saved->source_url = $source_url;
+            $saved->details = $details;
             
+            $rev = $couch->store($uuid, $saved);
+            if (!$rev)
+                return false;
+            
+            $details['couch_rev'] = $rev;
             
             // Trigger an event
-            if (!$details) $details = array();
             Events::trigger('mention', 'save', array_merge(array('target_url' => $target_url, 'source_url' => $source_url), $details));
             
             return true;
         }
-        
-        
-        // validate url function
-        
-        // save url function
         
     }
 }
