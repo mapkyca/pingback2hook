@@ -24,6 +24,8 @@ namespace pingback2hook\mention {
         
         public function init() {
             
+            parent::init();
+            
             Page::create('pingback', function($page, $subpages){
                 
                 Input::set('_vt', 'xml');

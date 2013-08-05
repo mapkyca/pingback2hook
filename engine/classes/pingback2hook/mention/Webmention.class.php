@@ -21,6 +21,7 @@ namespace pingback2hook\mention {
     use pingback2hook\templates\Template as Template;
 
     class Webmention extends Mention {
+        
 
         public static function endpoint($page, $subpages) {
 
@@ -66,6 +67,8 @@ namespace pingback2hook\mention {
 
         public function init() {
 
+            parent::init();
+            
             Page::create('webmention', '\pingback2hook\mention\Webmention::endpoint');
         }
 
