@@ -10,7 +10,7 @@
  * @link http://www.marcus-povey.co.uk
  */
 
-namespace pingback2hook\mention {
+namespace pingback2hook\api {
 
     class APIException extends \pingback2hook\core\exceptions\SystemException {
         
