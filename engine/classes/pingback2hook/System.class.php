@@ -75,6 +75,13 @@ namespace pingback2hook {
             )));
             \pingback2hook\core\SubsystemFactory::registerConstructor('i18n', '\pingback2hook\i18n\Basic', array(self::$config->docroot . 'i18n/', 'en'));
             
+            
+            // Load storage engine
+            \pingback2hook\core\SubsystemFactory::registerConstructor('nosqlstorage', '\pingback2hook\storage\nosql\CouchDB', array(
+                isset(self::$config->couchdb) ? self::$config->couchdb : 'pingback2hook', // DB Name, don't change unless you have to.
+                isset(self::$config->couchdburl) ? self::$config->couchdburl : 'http://localhost:5984/' // Couch DB connection settings, again defaults fine for most
+            ));
+            
             // Boot these since we need to to support plugin specific boot templates and translations. May find a better way eventually
             \pingback2hook\templates\Template::getInstance();
             \pingback2hook\i18n\i18n::getInstance();
@@ -85,11 +92,6 @@ namespace pingback2hook {
             \pingback2hook\api\API::init();
             \pingback2hook\webhooks\Webhook::init();
             
-            // Load storage engine
-            \pingback2hook\core\SubsystemFactory::registerConstructor('nosqlstorage', '\pingback2hook\storage\nosql\CouchDB', array(
-                isset(self::$config->couchdb) ? self::$config->couchdb : 'pingback2hook', // DB Name, don't change unless you have to.
-                isset(self::$config->couchdburl) ? self::$config->couchdburl : 'http://localhost:5984/' // Couch DB connection settings, again defaults fine for most
-            ));
             
             // Load definitions
             \pingback2hook\endpoints\Endpoint::init(self::$config->docroot. 'definitions/'); // Boot API
