@@ -38,7 +38,7 @@ namespace pingback2hook\mention {
                 
                 $view->views->mentions_on_target->map = "function (doc) {
                         if (doc.target_url && doc.source_url) {
-                            emit(doc.target_url, doc.source_url);
+                            emit(doc.target_url, doc);
                         }
                     }
                 ";
@@ -72,7 +72,7 @@ namespace pingback2hook\mention {
         public static function mentionsOnTarget($target_url, $limit = 10, $offset = 0, $descending = true) {
             
            $couch = CouchDB::getInstance();
-           return $couch->retrieve('_design/mention/_view/mentions_on_target', array('key' => "\"$target_url\"", 'limit' => $limit, 'skip' => $offset, 'descending' => $descending ? 'true' : 'false', 'include_docs' => 'true'));
+           return $couch->retrieve('_design/mention/_view/mentions_on_target', array('key' => "\"$target_url\"", 'limit' => $limit, 'skip' => $offset, 'descending' => $descending ? 'true' : 'false'));
             
         }
         
