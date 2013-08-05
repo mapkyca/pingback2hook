@@ -33,10 +33,8 @@ namespace pingback2hook\mention {
                     if ($xml = XmlParser::unserialise(Input::getPOST()))
                     {
                         // Get source and target url
-                        
-                        
-                    
-                        
+                        $source_url = $xml->children[1]->children[0]->children[0]->children[0]->content; 
+                        $target_url = $xml->children[1]->children[1]->children[0]->children[0]->content; 
                         
                         // Do we have a source and target URL?
                         if ($source_url && $target_url) {
