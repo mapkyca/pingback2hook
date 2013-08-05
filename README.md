@@ -50,7 +50,7 @@ Todo
 ----
 
 * [ ] Kick the tires on pingback (should work, but primarily using webmention)
-* [ ] Sexy indieweb microformats parsing to pull semantic content from source pages.
+* [ ] Sexy #indieweb microformats parsing to pull semantic content from source pages.
 
 See
 ---
