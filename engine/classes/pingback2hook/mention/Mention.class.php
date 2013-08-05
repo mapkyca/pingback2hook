@@ -20,13 +20,60 @@ namespace pingback2hook\mention {
     
     abstract class Mention {
         
+        /** 
+         * Create db views if necessary
+         */
+        protected static function createViews() {
+            
+            $uuid = '_design/mention';
+            $couch = CouchDB::getInstance();
+            
+            // See if we have a map function - map
+            if (!$map = $couch->retrieve($uuid)) {
+            
+                // Now we need to create view
+                $view = new \stdClass();
+                $view->views = new \stdClass();
+                $view->views->mentions_on_target = new \stdClass();
+                
+                $view->views->mentions_on_target->map = "function (doc) {
+                        if (doc.target_url && doc.source_url) {
+                            emit(doc.target_url, doc.source_url);
+                        }
+                    }
+                ";
+                
+                $couch->store($uuid, $view);
+                
+            }
+            
+        }
+        
+        public static function init() {
+            self::createViews();
+        }
+        
         /**
          * Retrieve a specific ping based on it's uuid (generated from target and source).
          * @param type $uuid
          * @return type
          */
-        public function get($uuid) {
+        public static function get($uuid) {
             return $couch->retrieve($uuid);
+        }
+        
+        /**
+         * Retrieve all mentions on a given target URL.
+         * @param type $target_url
+         * @param type $limit
+         * @param type $offset
+         * @return type
+         */
+        public static function mentionsOnTarget($target_url, $limit = 10, $offset = 0, $descending = true) {
+            
+           $couch = CouchDB::getInstance();
+           return $couch->retrieve('_design/mention/_view/mentions_on_target', array('key' => "\"$target_url\"", 'limit' => $limit, 'skip' => $offset, 'descending' => $descending ? 'true' : 'false', 'include_docs' => 'true'));
+            
         }
         
         /**
@@ -35,7 +82,7 @@ namespace pingback2hook\mention {
          * @param type $target_url
          * @return type
          */
-        protected function uuid($source_url, $target_url) { 
+        protected static function uuid($source_url, $target_url) { 
             return 'mention-' . sha1($target_url . $source_url); 
         }
         

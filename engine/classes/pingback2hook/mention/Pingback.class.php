@@ -22,7 +22,7 @@ namespace pingback2hook\mention {
     
     class Pingback extends Mention {
         
-        public function init() {
+        public static function init() {
             
             Mention::init();
             
