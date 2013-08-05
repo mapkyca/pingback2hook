@@ -24,7 +24,7 @@ namespace pingback2hook\mention {
         
         public function init() {
             
-            parent::init();
+            Mention::init();
             
             Page::create('pingback', function($page, $subpages){
                 

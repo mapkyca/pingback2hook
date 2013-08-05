@@ -67,7 +67,7 @@ namespace pingback2hook\mention {
 
         public function init() {
 
-            parent::init();
+            Mention::init();
             
             Page::create('webmention', '\pingback2hook\mention\Webmention::endpoint');
         }
