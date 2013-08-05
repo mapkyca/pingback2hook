@@ -65,7 +65,7 @@ namespace pingback2hook\mention {
                 throw new TargetNotFoundException('No endpoint of that definition specified.');
         }
 
-        public function init() {
+        public static function init() {
 
             Mention::init();
             
