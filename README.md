@@ -49,7 +49,6 @@ And/Or in the page metadata
 Todo
 ----
 
-* [ ] Query API
 * [ ] Kick the tires on pingback (should work, but primarily using webmention)
 
 See
