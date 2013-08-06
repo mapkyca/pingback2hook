@@ -29,7 +29,7 @@ http://SERVER/webmention/myendpoint/ and http://SERVER/pingback/myendpoint/xmlrp
     header('X-Pingback: http://SERVER/pingback/myendpoint/xmlrpc');
 ```
 And/Or in the page metadata
-?>
+
 
 ```html
 <html>
