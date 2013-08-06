@@ -56,5 +56,6 @@ Todo
 See
 ---
 * Marcus Povey <http://www.marcus-povey.co.uk>
+* Blog post <http://www.marcus-povey.co.uk/2013/08/07/easily-add-support-for-pingback-and-webmentions-and-webhooks/>
 * Webmention Spec <http://webmention.org/>
 * Pingback <http://www.hixie.ch/specs/pingback/pingback>
