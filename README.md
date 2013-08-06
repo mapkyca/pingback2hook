@@ -51,6 +51,7 @@ Todo
 
 * [ ] Kick the tires on pingback (should work, but primarily using webmention)
 * [ ] Sexy #indieweb microformats parsing to pull semantic content from source pages.
+* [ ] Currently a valid api token will let you view any data, limit this to the endpoint in question (less of a problem since this is intended for self hosting)
 
 See
 ---
