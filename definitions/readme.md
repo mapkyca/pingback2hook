@@ -10,7 +10,7 @@ You can define multiple entries in one ini file, or multiple entries in the same
 
 Each definition MUST have a section header as this defines you endpoint label. Post webmentions to 
 http://SERVER/webmention/myendpoint/, post pingbacks to http://SERVER/pingback/myendpoint/xmlrpc, 
-and make a GET request to http://SERVER/api/myendpoint/youquery.json passing secret as a header (e.g. http://SERVER/api/myendpoint/latest.json?limit=10.)
+and make a GET request to http://SERVER/api/myendpoint/youquery.json passing secret as a header (e.g. http://SERVER/api/myendpoint/latest.json?target_url=http://mypermalink.com&limit=10.)
 
 Example configuration:
 ----------------------
