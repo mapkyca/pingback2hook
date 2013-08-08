@@ -87,6 +87,7 @@ namespace pingback2hook {
             \pingback2hook\i18n\i18n::getInstance();
         
             // Boot various services
+            \pingback2hook\mention\mf2\MF2::init();
             \pingback2hook\mention\Webmention::init();
             \pingback2hook\mention\Pingback::init();
             \pingback2hook\api\API::init();

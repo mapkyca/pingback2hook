@@ -32,6 +32,9 @@ spl_autoload_register(function($class) {
         include_once($file);
 });
 
+// Manually include some external stuff
+require_once(dirname(__FILE__) . '/ext/mf2/mf2/Parser.php'); // Microformats library
+
 // Initialise the site
 global $CONFIG;
 \pingback2hook\System::init($CONFIG);
