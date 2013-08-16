@@ -42,8 +42,8 @@ namespace pingback2hook\mention {
                         if ($source_url && $target_url) {
 
                             // Check we haven't already got this one registered.
-                            if (self::isTargetRegistered($source_url, $target_url))
-                                throw new AlreadyRegisteredException("Target $target_url has already been registered.");
+                            //if (self::isTargetRegistered($source_url, $target_url))
+                            //    throw new AlreadyRegisteredException("Target $target_url has already been registered.");
                         
                             // Check whether target is in source url
                             if (!$details = self::checkSourceUrl($source_url, $target_url))
