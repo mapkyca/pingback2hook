@@ -63,12 +63,16 @@ namespace pingback2hook\webhooks {
                         $result = file_get_contents($url, false, $context);
                         
                         // Save result of pingback
-                        $ping = new \stdClass();
+                        $wh_uuid = 'wh-' . sha1($parameters['uuid'] . $url);
+                        
+                        $ping = $couch->retrieve($wh_uuid);
+                        if (!$ping)
+                            $ping = new \stdClass();
                         $ping->on_uuid = $parameters['uuid'];
                         $ping->on_rev = $parameters['couch_rev'];
                         $ping->response_headers = $http_response_header;
                         
-                        $couch->store('wh-' . sha1($parameters['uuid'] . $url), $ping);
+                        $couch->store($wh_uuid, $ping);
                         
                     }
                     
