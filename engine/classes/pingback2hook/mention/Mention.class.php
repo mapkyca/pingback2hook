@@ -20,6 +20,24 @@ namespace pingback2hook\mention {
     
     abstract class Mention {
         
+        public static function getUrl($url) {
+            global $version;
+            
+            $curl_handle=curl_init();
+            curl_setopt($curl_handle,CURLOPT_URL,$url);
+            curl_setopt($curl_handle,CURLOPT_CONNECTTIMEOUT,5);
+            curl_setopt($curl_handle, CURLOPT_FOLLOWLOCATION, true);
+            curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl_handle, CURLOPT_USERAGENT, "pingback2hook $version");
+
+            $buffer = curl_exec($curl_handle);
+            $http_status = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
+            
+            curl_close($curl_handle);
+            
+            return array('content' => $buffer, 'status' => $http_status);
+        }
+        
         /** 
          * Create db views if necessary
          */
@@ -144,10 +162,14 @@ namespace pingback2hook\mention {
          * @return array of data parsed from the source
          */
         protected static function checkSourceUrl($source_url, $target_url) {
-            if ($source = file_get_contents($source_url)) {
+            if ($result = self::getUrl($source_url)/*file_get_contents($source_url)*/) {
+                $source = $result['content'];
+                $status = $result['status'];
                 
-                preg_match_all('/(?<!=["\'])((ht|f)tps?:\/\/[^\s\r\n\t<>"\'\!\(\)]+)/i', $source, $matches);
-                if ((in_array($target_url, $matches[0])) && (strpos($http_response_header[0], '4') === false)) {
+                //preg_match_all('/(?<!=["\'])((ht|f)tps?:\/\/[^\s\r\n\t<>"\'\!\(\)]+)/i', $source, $matches); 
+                preg_match_all('#\bhttps?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#', $source, $matches);
+                
+                if ((in_array($target_url, $matches[0])) && (strpos($status, '4') === false)) {
 
                     return self::parseSource($source_url, $target_url); // Target found in source, return some data about the page
                     
@@ -171,7 +193,10 @@ namespace pingback2hook\mention {
             $couch = CouchDB::getInstance();
             
             if (!$details) $details = array();
-            $saved = new \stdClass();
+            
+            $saved = $couch->retrieve($uuid); // See if we have a version already (newer webmention protocol supports crud)
+            if (!$saved)
+                $saved = new \stdClass();
             $saved->target_url = $target_url;
             $saved->source_url = $source_url;
             $saved->unix_timestamp = time();
