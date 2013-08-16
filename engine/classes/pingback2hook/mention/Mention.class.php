@@ -133,7 +133,7 @@ namespace pingback2hook\mention {
             }
             
             // Return result of hook, lets see if there are any other things want to add data
-            return Events::trigger('mention', 'parsesource', array('return' => $details));
+            return Events::trigger('mention', 'parsesource', array('return' => $details, 'page_source' => $data));
             
         }
         
