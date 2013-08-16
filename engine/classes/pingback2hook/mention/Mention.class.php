@@ -132,12 +132,11 @@ namespace pingback2hook\mention {
                 $details['title'] = $m[1];
                         
             // Get extract (TODO: Do this nicer)
-            $strpos = strpos($data, $target_url);
+            /*$strpos = strpos($data, $target_url);
             if ($strpos!==false)
             {
                 $a = 0;
-                if ($strpos>300) $a=$strpos-300;
-
+                if ($strpos>300) $a=$strpos-300; 
                 $extract = strip_tags(substr($data, $a, 600));
 
                 if ($extract) {
@@ -148,7 +147,7 @@ namespace pingback2hook\mention {
                         
                         $details['extract'] = $extract;
                 }
-            }
+            }*/
             
             // Return result of hook, lets see if there are any other things want to add data
             return Events::trigger('mention', 'parsesource', array('return' => $details, 'page_source' => $data));
