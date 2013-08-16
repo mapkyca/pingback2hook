@@ -18,17 +18,20 @@ namespace pingback2hook\mention\mf2 {
  
     class MF2 {
     
-        
-        
         public static function init() {
-            
+                        
             // Listen to the mention creation events so we can parse for extra data
             Events::register('mention', 'parsesource', function($namespace, $event, $parameters){
                 
-                
-                // TODO: Parse source for mf2 data.
-                
-                
+                $parser = new \mf2\Parser($parameters['page_source']);
+                if ($mf2 = $parser->parse())
+                {
+                    $return = $parameters['return'];
+                    
+                    $return['mf2'] = $mf2; 
+                    
+                    return $return;
+                }
             });
         }
     }
