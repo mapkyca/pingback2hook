@@ -200,7 +200,7 @@ namespace pingback2hook\mention {
             $saved->source_url = $source_url;
             $saved->unix_timestamp = time();
             $saved->details = $details;
-            
+                        
             $rev = $couch->store($uuid, $saved);
             if (!$rev)
                 return false;
@@ -208,6 +208,10 @@ namespace pingback2hook\mention {
             $details['couch_rev'] = $rev;
             $details['uuid'] = $uuid;
             $details['unix_timestamp'] = $saved->unix_timestamp;
+            
+            if (preg_match('@\\\\([\w]+)$@', get_called_class(), $matches)) {
+                $details['handler'] = $matches[1]; // Get the type of ping
+            }
             
             // Trigger an event
             Events::trigger('mention', 'save', array_merge(array('target_url' => $target_url, 'source_url' => $source_url), $details));
