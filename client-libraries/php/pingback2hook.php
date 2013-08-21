@@ -47,8 +47,10 @@ class Pingback2Hook {
             }
         }
         
+        $query = $this->host . 'api/' . $this->endpoint . '/'.  $method . '.json?' . implode('&', $qp);
+        
         $curl_handle=curl_init();
-        curl_setopt($curl_handle,CURLOPT_URL, $this->host . 'api/' . $this->endpoint . $method . '.json?' . implode('&', $qp));
+        curl_setopt($curl_handle,CURLOPT_URL, $query);
         curl_setopt($curl_handle,CURLOPT_CONNECTTIMEOUT,5);
         curl_setopt($curl_handle, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
@@ -90,37 +92,57 @@ class Pingback2Hook {
      * @param type $offset
      */
     public function getLatestAsHTML($target_url, $limit = 10, $offset = 0) {
-        if ($results = $this->getLatest($limit, $offset)) {
+        if ($results = $this->getLatest($target_url, $limit, $offset)) {
             
             $out = array();
             
-            foreach ($results['rows'] as $result) {
+            foreach ($results->rows as $result) {
              
                 ob_start();
                 
-                $details = $result->details;
+                $entity = $result->value;
+                $details = $entity->details;
                 
                 $mf2 = null;
                 if (isset($details->mf2)) 
                     $mf2 = $details->mf2;
+                
                 ?>
 
-<div id="<?= $result->id; ?> <?= $details['handler']; ?>" class="p2h-item h-cite p-comment">
+<div id="<?= $result->id; ?> <?= $details->handler; ?>" class="p2h-item h-cite p-comment">
     <?php 
         if ($mf2) {
             // MF2 details found
             
-            
-            
+            $home = $mf2->rels->home[0];
+            $author = $mf2->items[0]->properties->author[0]->properties->name[0];
+            $photo = $mf2->items[0]->properties->author[0]->properties->photo[0];
+            $content = strip_tags($mf2->items[0]->properties->content[0], '<p><br><a>');
             ?>
+    
+    <div class="p2h-author-icon ">
+        <address class="p-author author vcard h-card">
+            <img src="<?= $photo; ?>" class="u-photo" height="50" width="50" />
+            <cite class="fn p-name"><a href="<?= $home; ?>" rel="external nofollow" class="u-url url"><?= $author; ?></a></cite> 
+            <span class="says">says:</span>        
+        </address>
+    </div>
+    <div class="p2h-comment-details">
+        <p class="comment-meta">
+            <a href="<?= $entity->source_url; ?>" rel="nofollow bookmark" class="note-published u-url">
+                <time class="dt-published published dt-updated updated" datetime="<?= date('c', $entity->unix_timestamp); ?>"><?= date('G:H j', $entity->unix_timestamp); ?><sup><?= date('S', $entity->unix_timestamp); ?></sup> <?= date('F Y', $entity->unix_timestamp); ?></time>
+            </a>
+        </p>
+        <p class="p-summary"><?= $content; ?></p>
+    </div>
                 
             <?php
         } else {
             // Just a straight ping
             ?>
             <p>
-                <a href="<?= $result->source_url; ?>" rel="nofollow bookmark" class="note-published u-url"><?= htmlentities($details->title); ?></a> mentioned <a href="u-url u-in-reply-to" href="<?= $result->target_url; ?>">this</a> on
-                <time class="dt-published published dt-updated updated" datetime="<?= date('c', $result->unix_timestamp); ?>"><?= date('G:H j', $result->unix_timestamp); ?><sup><?= date('S', $result->unix_timestamp); ?></sup> <?= date('F Y', $result->unix_timestamp); ?></time>
+                <a href="<?= $entity->source_url; ?>" rel="nofollow bookmark" class="note-published u-url"><?= $details->title; ?></a> mentioned <a class="u-url u-in-reply-to" href="<?= $entity->target_url; ?>">this</a> on
+                <time class="dt-published published dt-updated updated" datetime="<?= date('c', $entity->unix_timestamp); ?>"><?= date('G:H j', $entity->unix_timestamp); ?><sup><?= date('S', $entity->unix_timestamp); ?></sup> <?= date('F Y', $entity->unix_timestamp); ?></time>
             </p>
     
             <?php
@@ -135,6 +157,8 @@ class Pingback2Hook {
                 $out[] = ob_get_clean();
                 
             }
+            
+            return $out;
         }
         
         return false;
