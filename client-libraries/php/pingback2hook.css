@@ -10,3 +10,30 @@ root {
     display: block;
 }
 
+div.p2h-item {
+    
+    margin-bottom: 20px;
+    
+}
+
+div.p2h-item div.p2h-author-icon {
+    margin-bottom: 5px;
+    font-size: small;
+}
+
+div.p2h-item div.p2h-author-icon img {
+    float: left;
+    margin: 5px;
+}
+
+div.p2h-item div.p2h-comment-details {
+    
+}
+
+div.p2h-item div.p2h-comment-details p.comment-meta {
+   font-size: small; 
+}
+
+div.p2h-item div.p2h-comment-details p.summary {
+    
+}
