@@ -15,7 +15,7 @@
     <head>
         <title>Example pingbacks</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="pingback2hook.css">
+        <link rel="stylesheet" href="../css/pingback2hook.css">
         <style type="text/css">
             
         </style>
