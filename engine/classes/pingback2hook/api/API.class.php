@@ -44,9 +44,9 @@ namespace pingback2hook\api {
                     // Validate password
                     $secret = $endpoint['secret'];
                     $headers = apache_request_headers();
-                    if (!$secret) throw new APIException('API Secret missing from definition'); 
-                    if (!isset($headers['X-PINGBACK2HOOK-SECRET'])) throw new APIException("X-PINGBACK2HOOK-SECRET not passed in HTTP request header");
-                    if (strcmp($headers['X-PINGBACK2HOOK-SECRET'], $secret)!==0) throw new APIException("X-PINGBACK2HOOK-SECRET doesn't match the one defined.");
+                    //if (!$secret) throw new APIException('API Secret missing from definition'); 
+                    //if (!isset($headers['X-PINGBACK2HOOK-SECRET'])) throw new APIException("X-PINGBACK2HOOK-SECRET not passed in HTTP request header");
+                    //if (strcmp($headers['X-PINGBACK2HOOK-SECRET'], $secret)!==0) throw new APIException("X-PINGBACK2HOOK-SECRET doesn't match the one defined.");
                     
                     // What method are we calling
                     list($method_format) = array_slice($subpages, -1);
