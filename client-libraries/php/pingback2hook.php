@@ -109,7 +109,7 @@ class Pingback2Hook {
                 
                 ?>
 
-<div id="<?= $result->id; ?> <?= $details->handler; ?>" class="p2h-item h-cite p-comment">
+<div id="<?= $result->id; ?>" class="p2h-item h-cite p-comment  <?= $details->handler; ?>">
     <?php 
         if ($mf2) {
             // MF2 details found
