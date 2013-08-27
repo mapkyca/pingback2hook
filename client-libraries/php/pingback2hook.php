@@ -114,10 +114,27 @@ class Pingback2Hook {
         if ($mf2) {
             // MF2 details found
             
-            $home = $mf2->rels->home[0];
-            $author = $mf2->items[0]->properties->author[0]->properties->name[0];
-            $photo = $mf2->items[0]->properties->author[0]->properties->photo[0];
-            $content = strip_tags($mf2->items[0]->properties->content[0], '<p><br><a>');
+            foreach ($mf2->items as $item) {
+                                
+                // Find the entry
+                if (in_array('h-entry', $item->type)) {
+                    if (!$author)
+                        $author = $item->properties->author[0]->properties->name[0];
+                    
+                    if (!$home)
+                        $home = $item->properties->author[0]->url[0];
+                    
+                    if (!$photo)
+                        $photo = $item->properties->author[0]->properties->photo[0];
+                    
+                    if (!$content)
+                        $content = strip_tags($item->properties->content[0], '<p><br><a>');
+                }
+            }
+            
+            //if (!$home)
+            //    $home = $mf2->rels->home[0];
+            
             ?>
     
     <div class="p2h-author-icon ">
