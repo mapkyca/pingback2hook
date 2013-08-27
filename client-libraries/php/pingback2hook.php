@@ -122,7 +122,7 @@ class Pingback2Hook {
                         $author = $item->properties->author[0]->properties->name[0];
                     
                     if (!$home)
-                        $home = $item->properties->author[0]->url[0];
+                        $home = $item->properties->author[0]->properties->url[0];
                     
                     if (!$photo)
                         $photo = $item->properties->author[0]->properties->photo[0];
