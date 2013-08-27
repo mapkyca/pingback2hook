@@ -1,0 +1,26 @@
+<html>
+
+	<head>
+	<title>Example pingback2webhook.js</title>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="pingback2hook.js"></script>
+        <link rel="stylesheet" href="../css/pingback2hook.css">
+	</head>
+	<body>
+		<h1>Showing you the mentions...</h1>
+		<div class="pingbacks" id="mentions"></div>
+		
+		
+		<script>
+			$(document).ready(function() {
+				$("#mentions").mentions({
+                                        host: "http://localhost/",
+                                        endpoint: 'example',
+					target_url: "http://example.com",
+					limit: 10,
+                                        offset: 0
+				});
+			});
+		</script>
+	</body>
+</html>
