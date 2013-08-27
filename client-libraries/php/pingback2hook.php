@@ -147,7 +147,7 @@ class Pingback2Hook {
     <div class="p2h-comment-details">
         <p class="comment-meta">
             <a href="<?= $entity->source_url; ?>" rel="nofollow bookmark" class="note-published u-url">
-                <time class="dt-published published dt-updated updated" datetime="<?= date('c', $entity->unix_timestamp); ?>"><?= date('G:H j', $entity->unix_timestamp); ?><sup><?= date('S', $entity->unix_timestamp); ?></sup> <?= date('F Y', $entity->unix_timestamp); ?></time>
+                <time class="dt-published published dt-updated updated" datetime="<?= date('c', $entity->unix_timestamp); ?>"><?= date('G:i j', $entity->unix_timestamp); ?><sup><?= date('S', $entity->unix_timestamp); ?></sup> <?= date('F Y', $entity->unix_timestamp); ?></time>
             </a>
         </p>
         <p class="p-summary"><?= $content; ?></p>
@@ -159,7 +159,7 @@ class Pingback2Hook {
             ?>
             <p>
                 <a href="<?= $entity->source_url; ?>" rel="nofollow bookmark" class="note-published u-url"><?= $details->title; ?></a> mentioned <a class="u-url u-in-reply-to" href="<?= $entity->target_url; ?>">this</a> on
-                <time class="dt-published published dt-updated updated" datetime="<?= date('c', $entity->unix_timestamp); ?>"><?= date('G:H j', $entity->unix_timestamp); ?><sup><?= date('S', $entity->unix_timestamp); ?></sup> <?= date('F Y', $entity->unix_timestamp); ?></time>
+                <time class="dt-published published dt-updated updated" datetime="<?= date('c', $entity->unix_timestamp); ?>"><?= date('G:i j', $entity->unix_timestamp); ?><sup><?= date('S', $entity->unix_timestamp); ?></sup> <?= date('F Y', $entity->unix_timestamp); ?></time>
             </p>
     
             <?php
