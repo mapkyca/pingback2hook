@@ -50,10 +50,10 @@ Todo
 ----
 
 * [ ] Kick the tires on pingback (should work, but primarily using webmention)
-* [ ] Sexy #indieweb microformats parsing to pull semantic content from source pages, including things like u-like (http://www.sandeep.io/39)
-* [ ] Currently a valid api token will let you view any data, limit this to the endpoint in question (less of a problem since this is intended for self hosting)
-* [ ] CRUD events - update on dupe, delete on HTTP DELETE
-* [ ] Rendering helper libraries
+* [ ] Sexy #indieweb ~~microformats parsing to pull semantic content from source pages~~, including things like u-like (http://www.sandeep.io/39)
+* ~~[ ] Currently a valid api token will let you view any data, limit this to the endpoint in question (less of a problem since this is intended for self hosting)~~
+* [ ] CRUD events - ~~update~~ on dupe, delete on HTTP DELETE
+* [X] Rendering helper libraries
 
 
 See
