@@ -189,7 +189,7 @@ namespace pingback2hook\storage\nosql {
         public function retrieve($uuid, array $params = null) {
             $result = $this->query(COUCHDB_METHOD_GET, $uuid, $params);
             
-            if (!$result->error)
+            if ((!isset($result->error)) || (!$result->error))
                 return $result;
             
             return false;

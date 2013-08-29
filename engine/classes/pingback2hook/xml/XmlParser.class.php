@@ -57,9 +57,9 @@ namespace pingback2hook\xml {
 
 			if ($tag['type'] == "complete" || $tag['type'] == "open") {
 				$elements[$index] = new XmlElement;
-				$elements[$index]->name = $tag['tag'];
-				$elements[$index]->attributes = $tag['attributes'];
-				$elements[$index]->content = $tag['value'];
+				if (!empty($tag['tag'])) $elements[$index]->name = $tag['tag'];
+				if (!empty($tag['attributes'])) $elements[$index]->attributes = $tag['attributes'];
+				if (!empty($tag['value'])) $elements[$index]->content = $tag['value'];
 
 				if ($tag['type'] == "open") {
 					$elements[$index]->children = array();
