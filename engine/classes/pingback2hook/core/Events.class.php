@@ -134,11 +134,12 @@ namespace pingback2hook\core {
                 $result = call_user_func_array($function, array($namespace, $event, $parameters));
                 
                 if (isset($result)) $parameters['return'] = $result;
-                if ($parameters['halt'])
+                if (!empty($parameters['halt']))
                     return $parameters['return'];
             }
 
-            return $parameters['return'];
+            if (!empty($parameters['return']))
+                return $parameters['return'];
         }
 
         
