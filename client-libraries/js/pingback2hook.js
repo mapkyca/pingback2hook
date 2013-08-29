@@ -129,8 +129,8 @@
 
                             // Begin
                             output += '<div id="' + item.id + '" class="p2h-item h-cite p-comment "';
-                            if (typeof details.handler != 'undefined') {
-                                output += details.handler;
+                            if (typeof value.handler != 'undefined') {
+                                output += value.handler;
                             }
                             output += '">';
 
